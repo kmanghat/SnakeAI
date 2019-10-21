@@ -1,0 +1,93 @@
+**I put some tags so I can easily find stuff in the document
+**I thought this document would be pages long but it isn't so tags were kinda useless
+
+March 20th
+* Downloaded files
+* Set up repo
+* Familiarized myself with provided code
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------  
+
+March 21st
+* Integrated graph class from weekly into project
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------  
+
+March 27th
+* Implemented the BFS Player, need to clean up code, seperate BFS from Graph class and find more time
+  to work on it.
+* BFS should get me across the checkpoint, not too many ideas or much time to really work on it
+  
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------  
+March 28th
+* Did not code too much but did some reasearch
+* REALIZATION : Some paths always lead to deaths cannot avoid them, if food spawns there then its over(let the snake loop or kill itself?)
+* IDEA: Need to find a way to avoid loops, try to straighten snake out, possibly try to use A* algorithm for this
+* IDEA: Adopt differnet strategies for mazes with and without obstacles.
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------  
+March 29th
+* Current BFS player has a bug when no path is found. I won't bother fixing this because BFS has 
+no future in this program.
+* IDEA: After some research, A* with some special heuristic may produce better results. In the worst case scores cannot get worse.
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------  
+
+April 4th
+* Still thinking and reading stuff that would give me a significant boost in score.
+* (I have no idea, even if I use A* it would produce exactly the same result as BFS unless I manage to weight the graph in some special way)
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------   
+
+April 8th
+* Using Dijkstras instead of A*, with a weighted graph that forces snake to go around corners of board
+* Need to handle the no path case more elegantly
+* I also changed the graph class to what I am used to using, doesn't harm or boost performance overall, just uses different representations.
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------  
+
+(This seems like a bit of a jump, but if you check my repo, its exactly what happened becasue of the snow day)
+April 11th
+* Remember when I said BFS has no application in this program, I was wrong, should have made a class for it earlier
+* Made a lot of progress
+* Averages about 70 - 80 with a max of 110+
+* Current Method:
+    When Path exits use dijkstras sssp with mountain weighted graph. If path is found traverse it only if bfs of the next node in the path can visit a said amount of nodes
+This keeps the snake along the edges and helps make it so that it does not run into dead ends.
+
+    When path does not exist bfs starting from all adjacent nodes and move in direction that has most number of nodes that you can visit.
+This is better than what I had earlier where the snake became blind and went to the first available spot.
+
+In a special case when no path is found I leave the last row empty to allow the snake to escape, this gives a huge boost in performance.
+
+This method hangs sometimes so I have static variables that kill the game when no progrress is made after a said number of moves.
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+April 15th
+ * Documented code and ran astyle on it.
+ * Pretty much done.
+ * Finishing up log file and adding some fine tuning if possible.
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+April 22nd
+* Finishing up
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  
+** My log file seems short, but I wrote in it every time I programmed or thought of anything that might help and I think it describes my development process accurately.
+** For what it's worth my program runs well on grids (reasonably) larger and smaller that 17x15 as well, not sure if that was a requirement. Reasonably larger grids because, to construct the 
+   graph I ^4 the weight of the current location and store it in an integer. Using a crazy large grid may cause this to overflow while or before running dijkstras.
+
+What I could have done better:
+* My code isn't of the highest quality(when is it?), still pretty happy with it.
+* I can improve the score if I handle the case where if the last row contains an obstacle then the snake turns a block before it reaches it to leave an escape route.
+* Common way it dies, is coiling itself, some sort of check for this would help.
+* I should have explored more options, the only 3 that I thought of were BFS, A* and the current method.
+* There is a really cheesy method that will probably beat mine. Run the longest path factorial algorithm 100 times and find a long enough path. Scan that path till no food
+  is eaten and then re run the algorithm to find a path that eats the food and repeat. I haven't tried it but it should work and be fast enough as well.
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------  
+Credits:
+* Nothing really on the internet about this problem, few articles that used A* with forward checking but had a much lower average score than mine.
+* Only saw genetic, machine learning or scanners that performed better than mine but required learning time.
+    
+
